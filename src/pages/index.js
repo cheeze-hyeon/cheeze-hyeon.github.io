@@ -1,17 +1,21 @@
 import * as React from "react"
+import * as S from "../components/styled"
 import { Link, graphql } from "gatsby"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import GlobalStyle from "../components/GlobalStyle"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
+  console.log(posts)
 
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
+        <GlobalStyle />
         <Bio />
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
@@ -24,9 +28,10 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
+      <GlobalStyle />
       <Bio />
       <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
+        {/* {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
           return (
@@ -53,6 +58,35 @@ const BlogIndex = ({ data, location }) => {
                   />
                 </section>
               </article>
+            </li>
+          )
+        })} */}
+        {posts.map(post => {
+          const title = post.frontmatter.title || post.fields.slug
+          console.log(post)
+          return (
+            <li key={post.fields.slug}>
+              <S.StyledLink to={post.fields.slug} itemProp="url">
+              <S.ArticleCard
+                className="post-list-item"
+                itemScope
+                itemType="http://schema.org/Article"
+              >
+                { post.frontmatter.image && <img src={post.frontmatter.image} id="thumbnail" alt={title} style={{width: "100%", borderRadius: "10px"}}/>}
+                  <header>
+                  <div style={{display: "flex", gap: "15px"}}>
+                  {
+                    post.frontmatter.tags?.map(tag => {
+                      return <p>{tag}</p>
+                    })
+                  }
+                  </div>
+                  <h2>
+                      <span itemProp="headline">{title}</span>
+                  </h2>
+                </header>
+              </S.ArticleCard>
+              </S.StyledLink>
             </li>
           )
         })}
@@ -84,9 +118,11 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          date(formatString: "YYYY/MM/DD")  
           title
           description
+          image
+          tags
         }
       }
     }

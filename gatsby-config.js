@@ -9,16 +9,13 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Cheeze Blog`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `cheeze-hyeon`,
+      summary: `근거 있는 개발자`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
-    social: {
-      twitter: `kylemathews`,
-    },
+    description: `A blog about web development, programming, and other things.`,
+    siteUrl: `https://cheeze-hyeon.github.io./`,
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -82,25 +79,28 @@ module.exports = {
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + node.fields.slug,
-                  custom_elements: [{ "content:encoded": node.html }],
+                  custom_elements: [{ "content:encoded": node.html },  { "image": site.siteMetadata.siteUrl + node.frontmatter.image }],
                 })
               })
             },
-            query: `{
-              allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
-                nodes {
-                  excerpt
-                  html
-                  fields {
-                    slug
-                  }
-                  frontmatter {
-                    title
-                    date
+            query: `
+              {
+                allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+                  nodes {
+                    excerpt
+                    html
+                    fields {
+                      slug
+                    }
+                    frontmatter {
+                      title
+                      date
+                      image
+                    }
                   }
                 }
               }
-            }`,
+            `,
             output: "/rss.xml",
             title: "Gatsby Starter Blog RSS Feed",
           },

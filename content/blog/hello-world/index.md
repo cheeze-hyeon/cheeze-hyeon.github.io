@@ -1,7 +1,11 @@
 ---
-title: Hello World
-date: "2015-05-01T22:12:03.284Z"
-description: "Hello World"
+title: "반갑다 세상아"
+date: "2024-08-03T22:12:03.284Z"
+description: "첫발을 내딛"
+image: "https://hau-image-bucket.s3.ap-northeast-2.amazonaws.com/1025-AType-1.webp"
+tags: 
+    - 회고
+    - React
 ---
 
 This is my first post on my new fake blog! How exciting!
