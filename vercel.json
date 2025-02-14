@@ -1,7 +1,3 @@
 {
-  "functions": {
-    "api/**/*.ts": {
-      "includeFiles": ["post/**/*.mdx"]
-    }
-  }
+  "includeFiles": "post/**/*.mdx"
 }
