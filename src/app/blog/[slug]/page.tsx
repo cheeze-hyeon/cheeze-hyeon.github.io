@@ -5,6 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 
 interface BlogPostProps {
   params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 export default async function BlogPost({ params }: BlogPostProps) {
@@ -14,7 +15,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
   const decodedSlug = decodeURIComponent(filePath);
 
   if (!fs.existsSync(decodedSlug)) {
-    return notFound(); // 파일이 없으면 404 처리
+    return notFound();
   }
 
   const mdxContent = fs.readFileSync(decodedSlug, "utf-8");
