@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 interface BlogPostProps {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: {
+    slug: string;
+  };
 }
 
 export default async function BlogPost({ params }: BlogPostProps) {
