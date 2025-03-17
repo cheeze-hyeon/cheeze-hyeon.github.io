@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { HTMLAttributes } from "react";
 
 interface BlogPostProps {
   params: Promise<{ slug: string }>;
@@ -9,19 +10,19 @@ interface BlogPostProps {
 
 // 각 태그에 적용할 커스텀 스타일 컴포넌트
 const customComponents = {
-  h1: (props: any) => (
+  h1: (props: HTMLAttributes<HTMLHeadingElement>) => (
     <h1 className="text-4xl font-bold text-orange-500" {...props} />
   ),
-  h2: (props: any) => (
+  h2: (props: HTMLAttributes<HTMLHeadingElement>) => (
     <h2 className="text-3xl font-semibold text-blue-500" {...props} />
   ),
-  p: (props: any) => (
+  p: (props: HTMLAttributes<HTMLParagraphElement>) => (
     <p className="text-lg leading-7 text-gray-700" {...props} />
   ),
-  ul: (props: any) => (
+  ul: (props: HTMLAttributes<HTMLUListElement>) => (
     <ul className="list-disc pl-5 text-gray-700" {...props} />
   ),
-  ol: (props: any) => (
+  ol: (props: HTMLAttributes<HTMLOListElement>) => (
     <ol className="list-decimal pl-5 text-gray-700" {...props} />
   ),
 };
