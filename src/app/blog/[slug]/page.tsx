@@ -3,6 +3,7 @@ import path from "path";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { HTMLAttributes } from "react";
+import Header from "@/components/Header";
 
 interface BlogPostProps {
   params: Promise<{ slug: string }>;
@@ -16,14 +17,20 @@ const customComponents = {
   h2: (props: HTMLAttributes<HTMLHeadingElement>) => (
     <h2 className="text-3xl font-semibold text-blue-500" {...props} />
   ),
+  h3: (props: HTMLAttributes<HTMLHeadingElement>) => (
+    <h3 className="text-lg font-semibold text-gray-700 " {...props} />
+  ),
   p: (props: HTMLAttributes<HTMLParagraphElement>) => (
-    <p className="text-lg leading-7 text-gray-700" {...props} />
+    <p className="text-md leading-7 text-gray-700 mb-4" {...props} />
   ),
   ul: (props: HTMLAttributes<HTMLUListElement>) => (
     <ul className="list-disc pl-5 text-gray-700" {...props} />
   ),
   ol: (props: HTMLAttributes<HTMLOListElement>) => (
     <ol className="list-decimal pl-5 text-gray-700" {...props} />
+  ),
+  hr: (props: HTMLAttributes<HTMLHRElement>) => (
+    <hr className="my-8 border-t border-gray-200" {...props} />
   ),
 };
 
@@ -39,8 +46,11 @@ export default async function BlogPost({ params }: BlogPostProps) {
   const mdxContent = fs.readFileSync(decodedSlug, "utf-8");
 
   return (
-    <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
-      <MDXRemote source={mdxContent} components={customComponents} />
-    </div>
+    <>
+      <Header />
+      <div className="mx-auto px-8">
+        <MDXRemote source={mdxContent} components={customComponents} />
+      </div>
+    </>
   );
 }
